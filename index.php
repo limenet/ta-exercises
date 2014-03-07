@@ -28,7 +28,7 @@ require_once 'get.php';
           <br>
           <h2>Rate an Exercise Set</h2>
           <?php
-          function diffChoose($name, $g, $o, $r){
+          function diffChoose($name, $g = 0, $o = 0, $r = 0){
               return '<div class="btn-group pull-right" data-toggle=buttons>
               <label class="btn btn-success"><input type=radio name="'.$name.'" value=green><span class="badge">'.$g.'</span></label>
               <label class="btn btn-warning"><input type=radio name="'.$name.'" value=orange><span class="badge">'.$o.'</span></label>
