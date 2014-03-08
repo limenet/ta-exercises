@@ -1,5 +1,10 @@
 <?php
 require_once 'get.php';
+if(isset($_GET['admin'])){
+  define('ADMIN', true);
+}else{
+  define('ADMIN', false);
+}
 ?>
 
 <!DOCTYPE html>
@@ -61,19 +66,25 @@ require_once 'get.php';
                 </ul>
                 <?php endforeach; ?>
                 <div class="clearfix"></div>
-                <button type="submit" class="btn btn-primary col-md-12">Save</button>
+                <button type="submit" class="btn btn-primary col-xs-12 col-md-12">Save</button>
+                <?php if(ADMIN): ?>
+                  <hr>
+                  <a href="delete.php?id=<?=$exercise->id?>&what=votes" class="btn btn-warning col-xs-12 col-md-5">Remove votes</a>
+                  <a href="delete.php?id=<?=$exercise->id?>&what=exercise" class="btn btn-danger col-xs-12 col-md-5 col-md-push-2">Delete exercise</a>
+                <?php endif; ?>
               </div>
               </form>
             </div>
             <br>
             <hr>
           <?php endforeach; ?>
+          <?php if(ADMIN): ?>
           <h2>Add a New Exercise Set</h2>
           <form class="form-horizontal" role="form" action="add.php" method="post">
             <div class="form-group">
-              <label for="subject" class="col-sm-2 control-label">subject</label>
+              <label for="subject" class="col-sm-2 control-label">Subject</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="subject" list="subjects" autocomplete=off placeholder="subject">
+                <input type="text" class="form-control" name="subject" list="subjects" autocomplete=off>
                 <datalist id="subjects">
                   <?php foreach($subjectList as $subject): ?>
                   <option value="<?=$subject?>"></option>
@@ -82,9 +93,9 @@ require_once 'get.php';
               </div>
             </div>
             <div class="form-group">
-              <label for="ta" class="col-sm-2 control-label">ta</label>
+              <label for="ta" class="col-sm-2 control-label">Assistant</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="ta" list="tas" autocomplete=off placeholder="ta">
+                <input type="text" class="form-control" name="ta" list="tas" autocomplete=off>
                 <datalist id="tas">
                   <?php foreach($taList as $ta): ?>
                   <option value="<?=$ta?>"></option>
@@ -93,13 +104,13 @@ require_once 'get.php';
               </div>
             </div>
             <div class="form-group">
-              <label for="ex_set" class="col-sm-2 control-label">ex_set</label>
+              <label for="ex_set" class="col-sm-2 control-label">Exercise set</label>
               <div class="col-sm-10">
-                <input type="number" min=1 max=15 class="form-control" name="ex_set" placeholder="ex_set">
+                <input type="number" min=1 max=15 class="form-control" name="ex_set">
               </div>
             </div>
             <div class="form-group">
-              <label for="exercises" class="col-sm-2 control-label">exercises</label>
+              <label for="exercises" class="col-sm-2 control-label">Exercises</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" name="exercises" placeholder="1:a-f,2,3:a,4:a-b">
               </div>
@@ -110,6 +121,7 @@ require_once 'get.php';
               </div>
             </div>
           </form>
+        <?php endif; ?>
         </div>
       </div>
     </div><!--/.container-->
