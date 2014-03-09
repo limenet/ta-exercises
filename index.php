@@ -124,6 +124,14 @@ if(isset($_GET['admin'])){
         <?php endif; ?>
         </div>
       </div>
+      <footer>
+        <div class="row">
+          <hr>
+          <div class="col-md-4"><p>Built with <a href="http://getbootstrap.com/">Bootstrap</a>, <a href="http://php.net/">PHP</a> &amp; <a href="http://www.sqlite.org/">SQLite</a></p></div>
+          <div class="col-md-4 text-center">Source code available at <a href="https://github.com/limenet/ta-exercises">GitHub</a></div>
+          <div class="col-md-4 text-right"><a href="http://linusmetzler.me">Linus Metzler</a></div>
+        </div>
+      </footer>
     </div><!--/.container-->
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
