@@ -48,7 +48,7 @@ if(isset($_GET['admin'])){
           <?php foreach($entries as $exercise): ?>
             <div class="panel panel-default">
               <form action="save.php?id=<?=$exercise->id?>" method="post">
-              <div class="panel-heading"><?=$exercise->subject?>: Set #<?=$exercise->ex_set?> <small>TA: <?=$exercise->ta?></small></div>
+              <h3 class="panel-heading"><?=$exercise->subject?>: Set #<?=$exercise->ex_set?> <small>TA: <?=$exercise->ta?></small></h3>
               <div class="panel-body">
                 <?php
                 $partials = json_decode($exercise->exercises);
