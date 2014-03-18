@@ -128,6 +128,48 @@ if(isset($_GET['admin'])){
               </div>
             </div>
           </form>
+          <h2>Duplicate an Exercise for Other Assistants</h2>
+          <form class="form-horizontal" role="form" action="duplicate.php" method="post">
+            <div class="form-group">
+              <label for="subject" class="col-sm-2 control-label">Subject</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="subject" list="subjects" autocomplete=off>
+                <datalist id="subjects">
+                  <?php foreach($subjectList as $subject): ?>
+                  <option value="<?=$subject?>"></option>
+                  <?php endforeach; ?>
+                </datalist>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="source-ta" class="col-sm-2 control-label">Source assistant</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="source-ta" list="source-tas" autocomplete=off>
+                <datalist id="source-tas">
+                  <?php foreach($taList as $ta): ?>
+                  <option value="<?=$ta?>"></option>
+                  <?php endforeach; ?>
+                </datalist>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="ex_set" class="col-sm-2 control-label">Exercise set</label>
+              <div class="col-sm-10">
+                <input type="number" min=1 max=15 class="form-control" name="ex_set">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="destination-ta" class="col-sm-2 control-label">Destination assistants</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="destination-ta" list="destination-tas" placeholder="Name1, Name2, Name3">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Duplicate</button>
+              </div>
+            </div>
+          </form>
         <?php endif; ?>
         </div>
       </div>
