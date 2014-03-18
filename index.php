@@ -31,6 +31,12 @@ if(isset($_GET['admin'])){
         <div class="col-md-12">
           <h1 class="page-header">TA Exercises <small>Let your assistant know how difficult an exercise was</small></h1>
           <br>
+          <ul class="nav nav-pills" id="ta-filter">
+          <li class="disabled"><a href="#">Choose your assistant</a></li>
+          <?php foreach($taList as $hash => $ta): ?>
+          <li><a href="#" data-filter="<?=$hash?>"><?=$ta?></a></li>
+          <?php endforeach; ?>
+          </ul>
           <h2>Rate an Exercise Set</h2>
           <?php
           function diffChoose($name, $g, $o, $r){
@@ -45,39 +51,40 @@ if(isset($_GET['admin'])){
             <div class="clearfix"></div>';
           }
           ?>
+          <section id="exercises">
           <?php foreach($entries as $exercise): ?>
-            <div class="panel panel-default">
-              <form action="save.php?id=<?=$exercise->id?>" method="post">
-              <h3 class="panel-heading"><?=$exercise->subject?>: Set #<?=$exercise->ex_set?> <small>TA: <?=$exercise->ta?></small></h3>
-              <div class="panel-body">
-                <?php
-                $partials = json_decode($exercise->exercises);
-                $votes = json_decode($exercise->votes);
-                foreach($partials as $no => $parts):
-                ?>
-                <ul class="list-group col-md-3">
-                <?php if(!empty($parts)):?>
-                  <?php foreach($parts as $part): ?>
-                  <li class="list-group-item"><?=$no?>. <?=$part?>)<?=diffChoose($no.'-'.$part, @$votes->$no->$part->green, @$votes->$no->$part->orange, @$votes->$no->$part->red)?></li>
+              <div class="panel panel-default" data-ta-hash="<?=$exercise->taHash?>">
+                <form action="save.php?id=<?=$exercise->id?>" method="post">
+                <h3 class="panel-heading"><?=$exercise->subject?>: Set #<?=$exercise->ex_set?> <span class="pull-right">TA: <?=$exercise->ta?></span class="pull-right"></h3>
+                <div class="panel-body">
+                  <?php
+                  $partials = json_decode($exercise->exercises);
+                  $votes = json_decode($exercise->votes);
+                  foreach($partials as $no => $parts):
+                  ?>
+                  <ul class="list-group col-md-3">
+                  <?php if(!empty($parts)):?>
+                    <?php foreach($parts as $part): ?>
+                    <li class="list-group-item"><?=$no?>. <?=$part?>)<?=diffChoose($no.'-'.$part, @$votes->$no->$part->green, @$votes->$no->$part->orange, @$votes->$no->$part->red)?></li>
+                    <?php endforeach; ?>
+                  <?php else:?>
+                  <li class="list-group-item"><?=$no?>.<?=diffChoose($no, @$votes->$no->green, @$votes->$no->orange, @$votes->$no->red)?></li>
+                  <?php endif;?>
+                  </ul>
                   <?php endforeach; ?>
-                <?php else:?>
-                <li class="list-group-item"><?=$no?>.<?=diffChoose($no, @$votes->$no->green, @$votes->$no->orange, @$votes->$no->red)?></li>
-                <?php endif;?>
-                </ul>
-                <?php endforeach; ?>
-                <div class="clearfix"></div>
-                <button type="submit" class="btn btn-primary col-xs-12 col-md-12">Save</button>
-                <?php if(ADMIN): ?>
-                  <hr>
-                  <a href="delete.php?id=<?=$exercise->id?>&what=votes" class="btn btn-warning col-xs-12 col-md-5">Remove votes</a>
-                  <a href="delete.php?id=<?=$exercise->id?>&what=exercise" class="btn btn-danger col-xs-12 col-md-5 col-md-push-2">Delete exercise</a>
-                <?php endif; ?>
+                  <div class="clearfix"></div>
+                  <button type="submit" class="btn btn-primary col-xs-12 col-md-12">Save</button>
+                  <?php if(ADMIN): ?>
+                    <hr>
+                    <a href="delete.php?id=<?=$exercise->id?>&what=votes" class="btn btn-warning col-xs-12 col-md-5">Remove votes</a>
+                    <a href="delete.php?id=<?=$exercise->id?>&what=exercise" class="btn btn-danger col-xs-12 col-md-5 col-md-push-2">Delete exercise</a>
+                  <?php endif; ?>
+                </div>
+                </form>
               </div>
-              </form>
-            </div>
-            <br>
-            <hr>
-          <?php endforeach; ?>
+            <?php endforeach; ?>
+          </section>
+          <div class="clearfix"></div>
           <?php if(ADMIN): ?>
           <h2>Add a New Exercise Set</h2>
           <form class="form-horizontal" role="form" action="add.php" method="post">
@@ -135,6 +142,25 @@ if(isset($_GET['admin'])){
     </div><!--/.container-->
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+    jQuery(document).ready(function($) {
+      // filter items on button click
+      $('#ta-filter').on( 'click', 'a[data-filter]', function( event ) {
+        $('#ta-filter li').removeClass('active');
+        $(this).parent().addClass('active');
+        var filterValue = $(this).data('filter');
+        console.log(filterValue);
+        $('[data-ta-hash]').hide();
+        $('[data-ta-hash]').each(function(index, el) {
+          var $this = $(this);
+          console.log($this.data('ta-hash'));
+          if($this.data('ta-hash') == filterValue)
+            $this.show();
+        });
+      });
+    });
+
+    </script
   </body>
 </html>
 
