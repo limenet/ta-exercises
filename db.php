@@ -1,6 +1,6 @@
 <?php
-require_once("idiorm.php");
-require_once("functions.php");
+require_once 'idiorm.php';
+require_once 'functions.php';
 
 // Connect to the demo database file
 ORM::configure('sqlite:./data.sqlite');
@@ -10,7 +10,7 @@ ORM::configure('return_result_sets', true);
 // class and creates the table if it doesn't already exist.
 // Wouldn't normally be needed if the table is already there.
 $db = ORM::get_db();
-$db->exec("
+$db->exec('
     CREATE TABLE IF NOT EXISTS exercises (
         id INTEGER PRIMARY KEY,
         subject TEXT,
@@ -18,6 +18,5 @@ $db->exec("
         ex_set INTEGER,
         exercises TEXT,
         votes TEXT
-    );"
+    );'
 );
-?>
