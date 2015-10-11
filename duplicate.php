@@ -7,7 +7,7 @@ foreach (explode(',', $_POST['destination-ta']) as $destinationTa) {
     $destinationTa = trim($destinationTa);
     $destination = ORM::for_table('exercises')->create();
     foreach ($source->as_array() as $key => $value) {
-        if (!in_array($key, array('id', 'ta', 'votes'))) {
+        if (!in_array($key, ['id', 'ta', 'votes'])) {
             $destination->$key = $value;
         }
     }
