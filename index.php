@@ -1,9 +1,9 @@
 <?php
 require_once 'get.php';
-if(isset($_GET['admin'])){
-  define('ADMIN', true);
-}else{
-  define('ADMIN', false);
+if (isset($_GET['admin'])) {
+    define('ADMIN', true);
+} else {
+    define('ADMIN', false);
 }
 ?>
 
@@ -33,16 +33,18 @@ if(isset($_GET['admin'])){
           <br>
           <ul class="nav nav-pills" id="ta-filter">
           <li class="disabled"><a href="#">Choose your assistant</a></li>
-          <?php foreach($taList as $hash => $ta): ?>
+          <?php foreach ($taList as $hash => $ta): ?>
           <li><a href="#" data-filter="<?=$hash?>"><?=$ta?></a></li>
           <?php endforeach; ?>
           </ul>
           <h2>Rate an Exercise Set</h2>
           <?php
-          function diffChoose($name, $g, $o, $r){
-            $g = $g+0;
-            $o = $o+0;
-            $r = $r+0;
+          function diffChoose($name, $g, $o, $r)
+          {
+              $g = $g + 0;
+              $o = $o + 0;
+              $r = $r + 0;
+
               return '<div class="btn-group pull-right" data-toggle=buttons>
               <label class="btn btn-success"><input type=radio name="'.$name.'" value=green><span class="badge">'.$g.'</span></label>
               <label class="btn btn-warning"><input type=radio name="'.$name.'" value=orange><span class="badge">'.$o.'</span></label>
@@ -52,7 +54,7 @@ if(isset($_GET['admin'])){
           }
           ?>
           <section id="exercises">
-          <?php foreach($entries as $exercise): ?>
+          <?php foreach ($entries as $exercise): ?>
               <div class="panel panel-default" data-ta-hash="<?=$exercise->taHash?>">
                 <form action="save.php?id=<?=$exercise->id?>" method="post">
                 <h3 class="panel-heading"><?=$exercise->subject?>: Set #<?=$exercise->ex_set?> <span class="pull-right">TA: <?=$exercise->ta?></span class="pull-right"></h3>
@@ -60,11 +62,11 @@ if(isset($_GET['admin'])){
                   <?php
                   $partials = json_decode($exercise->exercises);
                   $votes = json_decode($exercise->votes);
-                  foreach($partials as $no => $parts):
+                  foreach ($partials as $no => $parts):
                   ?>
                   <ul class="list-group col-md-3">
-                  <?php if(!empty($parts)):?>
-                    <?php foreach($parts as $part): ?>
+                  <?php if (!empty($parts)):?>
+                    <?php foreach ($parts as $part): ?>
                     <li class="list-group-item"><?=$no?>. <?=$part?>)<?=diffChoose($no.'-'.$part, @$votes->$no->$part->green, @$votes->$no->$part->orange, @$votes->$no->$part->red)?></li>
                     <?php endforeach; ?>
                   <?php else:?>
@@ -74,7 +76,7 @@ if(isset($_GET['admin'])){
                   <?php endforeach; ?>
                   <div class="clearfix"></div>
                   <button type="submit" class="btn btn-primary col-xs-12 col-md-12">Save</button>
-                  <?php if(ADMIN): ?>
+                  <?php if (ADMIN): ?>
                     <hr>
                     <a href="delete.php?id=<?=$exercise->id?>&what=votes" class="btn btn-warning col-xs-12 col-md-5">Remove votes</a>
                     <a href="delete.php?id=<?=$exercise->id?>&what=exercise" class="btn btn-danger col-xs-12 col-md-5 col-md-push-2">Delete exercise</a>
@@ -85,7 +87,7 @@ if(isset($_GET['admin'])){
             <?php endforeach; ?>
           </section>
           <div class="clearfix"></div>
-          <?php if(ADMIN): ?>
+          <?php if (ADMIN): ?>
           <h2>Add a New Exercise Set</h2>
           <form class="form-horizontal" role="form" action="add.php" method="post">
             <div class="form-group">
@@ -93,7 +95,7 @@ if(isset($_GET['admin'])){
               <div class="col-sm-10">
                 <input type="text" class="form-control" name="subject" list="subjects" autocomplete=off>
                 <datalist id="subjects">
-                  <?php foreach($subjectList as $subject): ?>
+                  <?php foreach ($subjectList as $subject): ?>
                   <option value="<?=$subject?>"></option>
                   <?php endforeach; ?>
                 </datalist>
@@ -104,7 +106,7 @@ if(isset($_GET['admin'])){
               <div class="col-sm-10">
                 <input type="text" class="form-control" name="ta" list="tas" autocomplete=off>
                 <datalist id="tas">
-                  <?php foreach($taList as $ta): ?>
+                  <?php foreach ($taList as $ta): ?>
                   <option value="<?=$ta?>"></option>
                   <?php endforeach; ?>
                 </datalist>
@@ -135,7 +137,7 @@ if(isset($_GET['admin'])){
               <div class="col-sm-10">
                 <input type="text" class="form-control" name="subject" list="subjects" autocomplete=off>
                 <datalist id="subjects">
-                  <?php foreach($subjectList as $subject): ?>
+                  <?php foreach ($subjectList as $subject): ?>
                   <option value="<?=$subject?>"></option>
                   <?php endforeach; ?>
                 </datalist>
@@ -146,7 +148,7 @@ if(isset($_GET['admin'])){
               <div class="col-sm-10">
                 <input type="text" class="form-control" name="source-ta" list="source-tas" autocomplete=off>
                 <datalist id="source-tas">
-                  <?php foreach($taList as $ta): ?>
+                  <?php foreach ($taList as $ta): ?>
                   <option value="<?=$ta?>"></option>
                   <?php endforeach; ?>
                 </datalist>

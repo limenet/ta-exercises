@@ -1,11 +1,12 @@
 <?php
 
-function parseExString($in){
-    $out = array();
+function parseExString($in)
+{
+    $out = [];
     foreach (explode(',', $in) as $ex) {
         $exNo = $ex;
-        $exPartital = NULL;
-        if (strrpos($ex, ':') !== false){
+        $exPartital = null;
+        if (strrpos($ex, ':') !== false) {
             $exParts = explode(':', $ex);
             $exNo = $exParts[0];
             $exBounds = explode('-', $exParts[1]);
@@ -13,5 +14,6 @@ function parseExString($in){
         }
         $out[$exNo] = $exPartital;
     }
+
     return $out;
 }

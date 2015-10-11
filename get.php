@@ -1,8 +1,8 @@
 <?php
 
 require_once 'db.php';
-$taList = array();
-$subjectList = array();
+$taList = [];
+$subjectList = [];
 $entries = ORM::for_table('exercises')->order_by_desc('ex_set')->find_many();
 foreach ($entries as $key => $exercise) {
     $taHash = substr(sha1($exercise->ta), 0, 8);

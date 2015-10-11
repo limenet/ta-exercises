@@ -1,4 +1,5 @@
 <?php
+
 require_once 'idiorm.php';
 require_once 'functions.php';
 
