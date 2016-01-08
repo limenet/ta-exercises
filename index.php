@@ -71,7 +71,7 @@ if (isset($_GET['admin'])) {
                     <?php endforeach; ?>
                   <?php else:?>
                   <li class="list-group-item"><?=$no?>.<?=diffChoose($no, @$votes->$no->green, @$votes->$no->orange, @$votes->$no->red)?></li>
-                  <?php endif;?>
+                  <?php endif; ?>
                   </ul>
                   <?php endforeach; ?>
                   <div class="clearfix"></div>
